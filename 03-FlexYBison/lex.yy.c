@@ -817,7 +817,7 @@ YY_RULE_SETUP
 case 13:
 YY_RULE_SETUP
 #line 27 "flex.l"
-{ return ID; }
+{ yylval.cadena = strdup(yytext); return ID; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP

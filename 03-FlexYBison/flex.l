@@ -24,6 +24,6 @@ constEntera {DIGITO}({DIGITO})*
 "leer" { return ESCRIBIR; }
 "escribir" { return ESCRIBIR; }
 {constEntera} { yylval.num = atoi(yytext); return CONSTANTE; }
-{IDENTIFICADOR} { return ID; }
+{IDENTIFICADOR} { yylval.cadena = strdup(yytext); return ID; }
 
 %%

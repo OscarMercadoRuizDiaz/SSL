@@ -4,15 +4,25 @@
 #include <math.h>
 #include <ctype.h>
 #include <string.h>
+#include "TS.h"
 
 #define TAMNOM 20 + 1
+/*
+void chequear(char *s);
+int estaEnTS(char *id, RegTS *TS);
+void colocar(char *id, RegTS *TS);
+int valor(char* id); */
+void asignar(char* s, int valor, RegTS* TS);
+RegTS TS[1000] = { {"$", 99} };
 
 extern char *yytext;
 extern int yyleng;
 extern int yylex(void);
 extern void yyerror(char *);
 extern FILE *yyin;
-int variable = 0;
+
+
+
 %}
 %union
 {
@@ -22,12 +32,13 @@ int variable = 0;
 %token ASIGNACION COMA PYCOMA SUMA RESTA PARENIZQUIERDO PARENDERECHO INICIO FIN LEER ESCRIBIR
 %token <cadena> ID
 %token <num> CONSTANTE
+%type <num> expresion primaria
 %%
 programa: INICIO listaSentencias FIN
 listaSentencias: sentencia
         | listaSentencias sentencia
         ;
-sentencia: ID { if(yyleng > 32) yyerror("semantico: la longitud del identificador es mayor a 32"); } ASIGNACION expresion PYCOMA
+sentencia: ID { if(yyleng > 32) yyerror("semantico: la longitud del identificador es mayor a 32"); } ASIGNACION expresion PYCOMA { chequear($1, TS); asignar($1, $4, TS); }
         | LEER PARENIZQUIERDO listaIdentificadores PARENDERECHO PYCOMA
         | ESCRIBIR PARENIZQUIERDO listaExpresiones PARENDERECHO PYCOMA
         ;
@@ -36,14 +47,12 @@ listaIdentificadores: ID
 listaExpresiones: expresion
         | listaExpresiones COMA expresion
 expresion: primaria 
-        | expresion operadorAditivo primaria 
+        | expresion SUMA primaria { $$ = $1 + $3; }
+        | expresion RESTA primaria { $$ = $1 - $3; }
         ; 
-primaria: ID
-        | CONSTANTE { printf("valores %d %d", atoi(yytext), $1); }
-        | PARENIZQUIERDO expresion PARENDERECHO
-        ;
-operadorAditivo: SUMA
-        | RESTA
+primaria: ID { $$ = valor($1, TS); }
+        | CONSTANTE
+        | PARENIZQUIERDO expresion PARENDERECHO { $$ = $2; }
         ;
 
 %%
@@ -82,6 +91,7 @@ int main(int argc, char *argv[])
         return -1; // no pudo abrir archivo
     }
     yyin = in;
+    
     yyparse();
     fclose(in);
     return 0;
@@ -95,4 +105,11 @@ void yyerror(char *s)
 int yywrap()
 {
     return 1;
+}
+
+void asignar(char* s, int valor, RegTS* TS) 
+{
+    int pos = posicionEnTS(s,TS);
+    TS[pos].valor = valor;
+    printf("El valor asignado es: %d\n", TS[pos].valor);
 }
