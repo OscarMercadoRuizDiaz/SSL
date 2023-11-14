@@ -1,5 +1,4 @@
 inicio
-ab := 1-3;
-ab :=20;
-hola := 1+ (5 - ab) ;
+ab0aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  :=    1-3;
+g:=21;
 fin

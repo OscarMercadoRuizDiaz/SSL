@@ -90,13 +90,12 @@ extern int yyleng;
 extern int yylex(void);
 extern void yyerror(char *);
 extern FILE *yyin;
-
-
+int longitudID;
 
 
 
 /* Line 189 of yacc.c  */
-#line 100 "y.tab.c"
+#line 99 "y.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -161,15 +160,15 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 28 "bison.y"
+#line 27 "bison.y"
 
-    char *cadena;
+    char* cadena;
     int num;
 
 
 
 /* Line 214 of yacc.c  */
-#line 173 "y.tab.c"
+#line 172 "y.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -181,7 +180,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 185 "y.tab.c"
+#line 184 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -471,7 +470,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    37,    37,    38,    39,    41,    41,    42,    43,    45,
+       0,    36,    36,    37,    38,    40,    40,    42,    43,    45,
       46,    47,    48,    49,    50,    51,    53,    54,    55
 };
 #endif
@@ -1398,15 +1397,16 @@ yyreduce:
         case 5:
 
 /* Line 1464 of yacc.c  */
-#line 41 "bison.y"
-    { if(yyleng > 32) yyerror("semantico: la longitud del identificador es mayor a 32"); }
+#line 40 "bison.y"
+    { longitudID = yyleng; }
     break;
 
   case 6:
 
 /* Line 1464 of yacc.c  */
-#line 41 "bison.y"
-    { chequear((yyvsp[(1) - (5)].cadena), TS); asignar((yyvsp[(1) - (5)].cadena), (yyvsp[(4) - (5)].num), TS); }
+#line 40 "bison.y"
+    { if(longitudID > 32) {
+    yyerror("semantico: la longitud del identificador es mayor a 32"); } else {chequear((yyvsp[(1) - (5)].cadena), TS); asignar((yyvsp[(1) - (5)].cadena), (yyvsp[(4) - (5)].num), TS);} }
     break;
 
   case 14:

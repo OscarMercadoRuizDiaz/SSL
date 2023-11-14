@@ -20,13 +20,12 @@ extern int yyleng;
 extern int yylex(void);
 extern void yyerror(char *);
 extern FILE *yyin;
-
-
+int longitudID;
 
 %}
 %union
 {
-    char *cadena;
+    char* cadena;
     int num;
 }
 %token ASIGNACION COMA PYCOMA SUMA RESTA PARENIZQUIERDO PARENDERECHO INICIO FIN LEER ESCRIBIR
@@ -38,7 +37,8 @@ programa: INICIO listaSentencias FIN
 listaSentencias: sentencia
         | listaSentencias sentencia
         ;
-sentencia: ID { if(yyleng > 32) yyerror("semantico: la longitud del identificador es mayor a 32"); } ASIGNACION expresion PYCOMA { chequear($1, TS); asignar($1, $4, TS); }
+sentencia: ID { longitudID = yyleng; } ASIGNACION expresion PYCOMA { if(longitudID > 32) {
+    yyerror("semantico: la longitud del identificador es mayor a 32"); } else {chequear($1, TS); asignar($1, $4, TS);} }
         | LEER PARENIZQUIERDO listaIdentificadores PARENDERECHO PYCOMA
         | ESCRIBIR PARENIZQUIERDO listaExpresiones PARENDERECHO PYCOMA
         ;
