@@ -28,6 +28,7 @@ int longitudID;
 %type <num> expresion primaria
 %%
 programa: INICIO listaSentencias FIN
+        ;
 listaSentencias: sentencia
         | listaSentencias sentencia
         ;
@@ -38,8 +39,10 @@ sentencia: ID { longitudID = yyleng; } ASIGNACION expresion PYCOMA { if(longitud
         ;
 listaIdentificadores: ID
         | listaIdentificadores COMA ID
+        ;
 listaExpresiones: expresion
         | listaExpresiones COMA expresion
+        ;
 expresion: primaria 
         | expresion SUMA primaria { $$ = $1 + $3; }
         | expresion RESTA primaria { $$ = $1 - $3; }
