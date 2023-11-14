@@ -4,8 +4,11 @@ typedef struct {
     int valor;
 } RegTS;
 
-void chequear(char *s, RegTS *TS);
-int estaEnTS(char *id, RegTS *TS);
-void colocar(char *id, RegTS *TS);
-int valor(char* id, RegTS *TS);
-int posicionEnTS(char* id, RegTS* TS);
+RegTS TS[1000];
+
+void chequear(char *s);
+int estaEnTS(char *id);
+void colocar(char *id);
+int valor(char* id);
+int posicionEnTS(char* id);
+void asignar(char* s, int valor);

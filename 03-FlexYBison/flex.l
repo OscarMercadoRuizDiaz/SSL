@@ -29,6 +29,6 @@ ESPACIOENBLANCO [[:blank:]]
 {constEntera} { yylval.num = atoi(yytext); return CONSTANTE; }
 {IDENTIFICADOR} { yylval.cadena = strdup(yytext); return ID; }
 {ESPACIOENBLANCO} 	;
-. { yyerror("lexico: el lexema no pertenece a ningun token\n"); }
+. { yyerror("lexico: el lexema no pertenece a ningun token\n"); return ERRORLEXICO; }
 
 %%

@@ -7,13 +7,6 @@
 #include "TS.h"
 
 #define TAMNOM 20 + 1
-/*
-void chequear(char *s);
-int estaEnTS(char *id, RegTS *TS);
-void colocar(char *id, RegTS *TS);
-int valor(char* id); */
-void asignar(char* s, int valor, RegTS* TS);
-RegTS TS[1000] = { {"$", 99} };
 
 extern char *yytext;
 extern int yyleng;
@@ -29,6 +22,7 @@ int longitudID;
     int num;
 }
 %token ASIGNACION COMA PYCOMA SUMA RESTA PARENIZQUIERDO PARENDERECHO INICIO FIN LEER ESCRIBIR
+%token ERRORLEXICO
 %token <cadena> ID
 %token <num> CONSTANTE
 %type <num> expresion primaria
@@ -38,7 +32,7 @@ listaSentencias: sentencia
         | listaSentencias sentencia
         ;
 sentencia: ID { longitudID = yyleng; } ASIGNACION expresion PYCOMA { if(longitudID > 32) {
-    yyerror("semantico: la longitud del identificador es mayor a 32"); } else {chequear($1, TS); asignar($1, $4, TS);} }
+    yyerror("semantico: la longitud del identificador es mayor a 32"); } else {chequear($1); asignar($1, $4);} }
         | LEER PARENIZQUIERDO listaIdentificadores PARENDERECHO PYCOMA
         | ESCRIBIR PARENIZQUIERDO listaExpresiones PARENDERECHO PYCOMA
         ;
@@ -50,7 +44,7 @@ expresion: primaria
         | expresion SUMA primaria { $$ = $1 + $3; }
         | expresion RESTA primaria { $$ = $1 - $3; }
         ; 
-primaria: ID { $$ = valor($1, TS); }
+primaria: ID { $$ = valor($1); }
         | CONSTANTE
         | PARENIZQUIERDO expresion PARENDERECHO { $$ = $2; }
         ;
@@ -107,9 +101,3 @@ int yywrap()
     return 1;
 }
 
-void asignar(char* s, int valor, RegTS* TS) 
-{
-    int pos = posicionEnTS(s,TS);
-    TS[pos].valor = valor;
-    printf("El valor asignado es: %d\n", TS[pos].valor);
-}

@@ -49,8 +49,9 @@
      FIN = 266,
      LEER = 267,
      ESCRIBIR = 268,
-     ID = 269,
-     CONSTANTE = 270
+     ERRORLEXICO = 269,
+     ID = 270,
+     CONSTANTE = 271
    };
 #endif
 /* Tokens.  */
@@ -65,8 +66,9 @@
 #define FIN 266
 #define LEER 267
 #define ESCRIBIR 268
-#define ID 269
-#define CONSTANTE 270
+#define ERRORLEXICO 269
+#define ID 270
+#define CONSTANTE 271
 
 
 
@@ -76,7 +78,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1685 of yacc.c  */
-#line 27 "bison.y"
+#line 20 "bison.y"
 
     char* cadena;
     int num;
@@ -84,7 +86,7 @@ typedef union YYSTYPE
 
 
 /* Line 1685 of yacc.c  */
-#line 88 "y.tab.h"
+#line 90 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

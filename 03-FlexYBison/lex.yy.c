@@ -830,7 +830,7 @@ YY_RULE_SETUP
 case 15:
 YY_RULE_SETUP
 #line 32 "flex.l"
-{ yyerror("lexico: el lexema no pertenece a ningun token\n"); }
+{ yyerror("lexico: el lexema no pertenece a ningun token\n"); return ERRORLEXICO; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
