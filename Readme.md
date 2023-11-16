@@ -1,5 +1,4 @@
-# Sintaxis y semántica de los Lenguajes 
-
+# Sintaxis y semántica de los Lenguajes. 
 # Tp N•3 Flex y Bison
 
 - Curso: K2006
