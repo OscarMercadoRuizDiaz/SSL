@@ -1,8 +1,6 @@
-# Sintaxis y semántica de los Lenguajes - Curso 2023
+# Sintaxis y semántica de los Lenguajes 
 
-Repositorio personal para la materia Sintaxis y Semántica de los Lenguajes.
-
-Tp N•3 Flex y Bison
+# Tp N•3 Flex y Bison
 
 - Curso: K2006
 - Año de cursada: 2023
