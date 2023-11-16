@@ -1,5 +1,4 @@
-# Sintaxis y semántica de los Lenguajes. 
-# Tp N•3 Flex y Bison
+# Sintaxis y semántica de los Lenguajes. Tp N°3 Flex y Bison
 
 - Curso: K2006
 - Año de cursada: 2023
